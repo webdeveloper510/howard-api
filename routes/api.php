@@ -1,0 +1,29 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CRMController;
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::post('create_department',[CRMController::class,'create_department']);
+Route::get('get_department',[CRMController::class,'get_department']);
+Route::post('create_employee',[CRMController::class,'create_employee']);
+Route::get('get_employee',[CRMController::class,'get_employee']);
+Route::delete('delete_employee/{id}',[CRMController::class,'delete_employee']);
+Route::put('edit_employee/{id}',[CRMController::class,'edit_employee']);
+Route::delete('delete_department/{id}',[CRMController::class,'delete_department']);
+Route::post('create_announcment',[CRMController::class,'create_announcment']);
+Route::post('login', [CRMController::class, 'login']);
