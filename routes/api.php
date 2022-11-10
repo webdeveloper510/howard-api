@@ -27,3 +27,7 @@ Route::put('edit_employee/{id}',[CRMController::class,'edit_employee']);
 Route::delete('delete_department/{id}',[CRMController::class,'delete_department']);
 Route::post('create_announcment',[CRMController::class,'create_announcment']);
 Route::post('login', [CRMController::class, 'login']);
+Route::get('get_employee_profile/{id}',[CRMController::class,'get_employee_profile']);
+Route::get('get_team',[CRMController::class,'get_team']);
+Route::post('demage_report',[CRMController::class,'demage_report']);
+

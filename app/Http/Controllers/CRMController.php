@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Employee;
+use App\Models\DemageReport;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+
 
 use function Ramsey\Uuid\v1;
 
@@ -24,9 +25,9 @@ class CRMController extends Controller
 
     public function get_department()
     {
-
+        $dapartment = Department::all();
         return response()->json([
-            'Department' => Department::all()
+            'Department' => $dapartment
         ]);
     }
 
@@ -113,4 +114,53 @@ class CRMController extends Controller
     }
 
 
+    public function get_employee_profile($id){
+        $data = Employee::find($id);
+        return response()->json([
+            'employees' => $data,
+            'message' => 'Employee Detail !!'
+
+        ]);
+    }
+
+    public function get_team(){
+       $team = Employee::all();
+       return response()->json([
+        'employees' => $team,
+        'message' => 'Get Team Detail !!'
+       ]);
+    }
+
+
+    public function demage_report(Request $request){
+        // echo "<pre>";
+        // print_r($request);die;
+        $user = new DemageReport;
+        $user['first_name'] = $request->first_name;
+        $user['last_name'] = $request->last_name;
+        $user['phone'] = $request->phone;
+        $user['email'] = $request->email;
+        $user['location'] = $request->location;
+        $user['department'] = $request->department;
+        $user['title'] = $request->title;
+        $user['address'] = $request->address;
+        $user['date_of_incident'] = $request->date_of_incident;
+        $user['time_of_incident'] = $request->time_of_incident;
+        $user['reported_date'] = $request->reported_date;
+        $user['reported_time'] = $request->reported_time;
+        $user['police_report'] = $request->police_report;
+        $user['reporting_officer_name'] = $request->reporting_officer_name;
+        $user['station_phone'] = $request->station_phone;
+        $user['police_phone'] = $request->police_phone;
+        //$user['item_lost/stolen/damaged'] = $request->item_lost/stolen/damaged;
+        $user['last_known_location'] = $request->last_known_location;
+        $user['description'] = $request->description;
+        $user['resolution'] = $request->resolution;
+        $user->save();
+        return response()->json([
+            'demage_reports' => $user
+        ]);
+
+
+    }
 }

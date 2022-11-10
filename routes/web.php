@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CRMController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,4 +18,5 @@ use App\Http\Controllers\CRMController;
 Route::get('/', function () {
     return view('welcome');
 });
+// Route::get('/test',[CRMController::class, 'testing']);
 
