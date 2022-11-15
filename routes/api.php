@@ -20,11 +20,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('create_department',[CRMController::class,'create_department']);
 Route::get('get_department',[CRMController::class,'get_department']);
+Route::delete('delete_department/{id}',[CRMController::class,'delete_department']);
+Route::put('edit_department/{id}',[CRMController::class,'edit_department']);
 Route::post('create_employee',[CRMController::class,'create_employee']);
 Route::get('get_employee',[CRMController::class,'get_employee']);
 Route::delete('delete_employee/{id}',[CRMController::class,'delete_employee']);
 Route::put('edit_employee/{id}',[CRMController::class,'edit_employee']);
-Route::delete('delete_department/{id}',[CRMController::class,'delete_department']);
+Route::put('change_employee_password/{id}',[CRMController::class,'change_employee_password']);
 Route::post('create_announcment',[CRMController::class,'create_announcment']);
 Route::post('login', [CRMController::class, 'login']);
 Route::get('get_employee_profile/{id}',[CRMController::class,'get_employee_profile']);

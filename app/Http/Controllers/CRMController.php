@@ -69,7 +69,6 @@ class CRMController extends Controller
 
     public function edit_employee(Request $request, $id)
     {
-        // Employee::where('id',$id)->first();
         $update = Employee::where('id', $id)->update($request->all());
         return response()->json([
             'employees' => $update,
@@ -163,4 +162,33 @@ class CRMController extends Controller
 
 
     }
+
+    public function edit_department(Request $request, $id){
+        $data = $request->all();
+        $department_name = $data['department_name'];
+        $description = $data['description'];
+        Department::where('id',$id)->update(['department_name' => $department_name, 'description' => $description]);
+        return response()->json([
+            'message' => 'Department Updated Successfully !!'
+        ]);
+    }
+
+    public function change_employee_password(Request $request, $id){
+        // $employee_id = $id;
+        // if($employee_id){
+
+        $data = $request->all();
+        $password = $data['password'];
+        Employee::where('id',$id)->update(['password' => $password]);
+        return response()->json([
+            'message' => 'Employee Password Updated Successfully !!'
+        ]);
+
+    //  }else{
+    //     return response()->json([
+    //         'message' => 'Opps ! Could not Find id'
+    //     ]);
+    //  }
+  }
+
 }
