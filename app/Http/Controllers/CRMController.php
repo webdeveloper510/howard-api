@@ -197,21 +197,33 @@ class CRMController extends Controller
         $user = new Policy;
         $user['name'] = $request->name;
         $user['description'] = $request->description;
-        $user->save();
-
+        if($user->save()){
         return response()->json([
             'policies' => $user
         ]);
+    }else{
+        return response()->json([
+            'policies' => "Data can not be inserting !!"
+        ]);
+    }
+
     }
 
 
     public function policy_delete($id)
     {
         $data = Policy::find($id);
-        $data->delete();
+        if($data->delete()){
         return response()->json([
-            'policies' => $data
+            'policies' => $data,
+            'message' => 'Deleted data successfully !!'
         ]);
+    }else{
+        return response()->json([
+            'message' => 'Can not be data deleted'
+        ]);
+    }
+    
     }
     public function policy_edit(Request $request, $id){
         $data = $request->all();
