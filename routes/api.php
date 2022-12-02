@@ -32,4 +32,7 @@ Route::post('login', [CRMController::class, 'login']);
 Route::get('get_employee_profile/{id}',[CRMController::class,'get_employee_profile']);
 Route::get('get_team',[CRMController::class,'get_team']);
 Route::post('demage_report',[CRMController::class,'demage_report']);
+Route::post('policy_create',[CRMController::class,'policy_create']);
+Route::delete('policy_delete/{id}',[CRMController::class,'policy_delete']);
+Route::put('policy_edit/{id}',[CRMController::class,'policy_edit']);
 

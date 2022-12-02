@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Policy;
 use App\Models\DemageReport;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
@@ -190,5 +191,36 @@ class CRMController extends Controller
     //     ]);
     //  }
   }
+
+  public function policy_create(Request $request)
+    {
+        $user = new Policy;
+        $user['name'] = $request->name;
+        $user['description'] = $request->description;
+        $user->save();
+
+        return response()->json([
+            'policies' => $user
+        ]);
+    }
+
+
+    public function policy_delete($id)
+    {
+        $data = Policy::find($id);
+        $data->delete();
+        return response()->json([
+            'policies' => $data
+        ]);
+    }
+    public function policy_edit(Request $request, $id){
+        $data = $request->all();
+        $name = $data['name'];
+        $description = $data['description'];
+        Policy::where('id',$id)->update(['name' => $name, 'description' => $description]);
+        return response()->json([
+            'message' => 'Policy Updated Successfully !!'
+        ]);
+    }
 
 }
