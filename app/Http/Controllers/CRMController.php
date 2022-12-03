@@ -18,6 +18,7 @@ class CRMController extends Controller
     {
         $department = new Department();
         $department->department_name = $request->department_name;
+        $department->description = $request->description;
         $department->save();
         return response()->json([
             'Department' => $department
@@ -34,8 +35,6 @@ class CRMController extends Controller
 
     public function create_employee(Request $request)
     {
-        // echo "<pre>";
-        // print_r($request->all());die;
         $user = new Employee;
         $user['first_name'] = $request->first_name;
         $user['last_name'] = $request->last_name;
@@ -43,12 +42,13 @@ class CRMController extends Controller
         $user['password'] = $request->password;
         $user['employee_id'] = $request->employee_id;
         $user['department_id'] = $request->department_id;
-        $user['profile_img'] = $request->profile_img;
-        $user['status'] = $request->status;
+        $user['status'] = 1;
         $user['created_by'] = $request->created_by;
+        $user['phone'] = $request->phone;
         $user->save();
         return response()->json([
-            'employees' => $user
+            'employees' => $user,
+            'message'=>'Employee Create Successfull!'
         ]);
     }
 
@@ -104,11 +104,15 @@ class CRMController extends Controller
 
     public function login(Request $request)
     {
-        $login = Employee::where(['employee_id' => $request['employee_id'], 'password' => $request['password']]);
-
-        if ($login) {
+        $login = Employee::where(['employee_id' => $request['employee_id'], 'password' => $request['password']])->get()->toArray();
+        if (count($login)>0) {
             return response()->json([
                 'message' => 'Login Successfully !!',
+             ]);
+        }
+        else{
+            return response()->json([
+                'message' => 'Invalid Login !!'
             ]);
         }
     }
@@ -152,13 +156,14 @@ class CRMController extends Controller
         $user['reporting_officer_name'] = $request->reporting_officer_name;
         $user['station_phone'] = $request->station_phone;
         $user['police_phone'] = $request->police_phone;
-        //$user['item_lost/stolen/damaged'] = $request->item_lost/stolen/damaged;
+        $user['status'] = $request->status;
         $user['last_known_location'] = $request->last_known_location;
         $user['description'] = $request->description;
         $user['resolution'] = $request->resolution;
         $user->save();
         return response()->json([
-            'demage_reports' => $user
+            'demage_reports' => $user,
+            'message'=>'Report SuccessfullY'
         ]);
 
 
@@ -175,9 +180,6 @@ class CRMController extends Controller
     }
 
     public function change_employee_password(Request $request, $id){
-        // $employee_id = $id;
-        // if($employee_id){
-
         $data = $request->all();
         $password = $data['password'];
         Employee::where('id',$id)->update(['password' => $password]);
