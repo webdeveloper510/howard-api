@@ -54,9 +54,10 @@ class CRMController extends Controller
 
     public function get_employee()
     {
-
         return response()->json([
-            'employee' => Employee::all()
+            'employee' => Employee::with(['department' => function ($query) {
+                $query->select('id', 'department_name');
+            }])->get()
         ]);
     }
     
@@ -238,12 +239,10 @@ class CRMController extends Controller
             'message' => 'Policy Updated Successfully !!'
         ]);
     }
-    public function get_policy($id){
-        
-        $data = Policy::find($id);
-
+    public function get_policy(){        
+        $data = Policy::all();
         return response()->json([
-            'employees' => $data,
+            'policy' => $data,
             'message' => 'Policy Details !!'
 
         ]);
