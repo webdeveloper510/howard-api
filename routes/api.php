@@ -35,4 +35,5 @@ Route::post('demage_report',[CRMController::class,'demage_report']);
 Route::post('policy_create',[CRMController::class,'policy_create']);
 Route::delete('policy_delete/{id}',[CRMController::class,'policy_delete']);
 Route::put('policy_edit/{id}',[CRMController::class,'policy_edit']);
+Route::get('get_policy/{id}',[CRMController::class,'get_policy']);
 

@@ -59,6 +59,7 @@ class CRMController extends Controller
             'employee' => Employee::all()
         ]);
     }
+    
     public function delete_employee($id)
     {
         $data = Employee::find($id);
@@ -111,6 +112,7 @@ class CRMController extends Controller
                 'message' => 'Login Successfully !!',
             ]);
         }
+        
     }
 
 
@@ -232,6 +234,16 @@ class CRMController extends Controller
         Policy::where('id',$id)->update(['name' => $name, 'description' => $description]);
         return response()->json([
             'message' => 'Policy Updated Successfully !!'
+        ]);
+    }
+    public function get_policy($id){
+        
+        $data = Policy::find($id);
+
+        return response()->json([
+            'employees' => $data,
+            'message' => 'Policy Details !!'
+
         ]);
     }
 
