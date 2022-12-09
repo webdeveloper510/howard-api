@@ -36,4 +36,5 @@ Route::post('policy_create',[CRMController::class,'policy_create']);
 Route::delete('policy_delete/{id}',[CRMController::class,'policy_delete']);
 Route::put('policy_edit/{id}',[CRMController::class,'policy_edit']);
 Route::get('get_policy',[CRMController::class,'get_policy']);
+Route::get('view/{id}',[CRMController::class,'view_policy']);
 

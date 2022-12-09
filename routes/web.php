@@ -18,5 +18,8 @@ use App\Http\Controllers\CRMController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/chat', function () {
+    return view('chat');
+});
 // Route::get('/test',[CRMController::class, 'testing']);
 

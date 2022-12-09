@@ -248,4 +248,13 @@ class CRMController extends Controller
         ]);
     }
 
+    public function view_policy($id){        
+        $data = Policy::find($id);
+        return response()->json([
+            'policy' => $data,
+            'message' => 'Policy Details !!'
+
+        ]);
+    }
+
 }
