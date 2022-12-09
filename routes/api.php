@@ -29,6 +29,7 @@ Route::put('edit_employee/{id}',[CRMController::class,'edit_employee']);
 Route::put('change_employee_password/{id}',[CRMController::class,'change_employee_password']);
 Route::post('create_announcment',[CRMController::class,'create_announcment']);
 Route::post('login', [CRMController::class, 'login']);
+Route::post('send_message', [CRMController::class, 'send_message']);
 Route::get('get_employee_profile/{id}',[CRMController::class,'get_employee_profile']);
 Route::get('get_team',[CRMController::class,'get_team']);
 Route::post('demage_report',[CRMController::class,'demage_report']);
@@ -36,5 +37,7 @@ Route::post('policy_create',[CRMController::class,'policy_create']);
 Route::delete('policy_delete/{id}',[CRMController::class,'policy_delete']);
 Route::put('policy_edit/{id}',[CRMController::class,'policy_edit']);
 Route::get('get_policy',[CRMController::class,'get_policy']);
+Route::get('get_users',[CRMController::class,'getUsers']);
 Route::get('view/{id}',[CRMController::class,'view_policy']);
+Route::get('messages',[CRMController::class,'fetch_messages']);
 

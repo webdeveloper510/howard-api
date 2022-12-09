@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Policy;
+use App\Models\Message;
+use App\Models\User;
 use App\Models\DemageReport;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
@@ -256,5 +258,37 @@ class CRMController extends Controller
 
         ]);
     }
+
+    public function fetch_messages(){   
+
+        return Message::with('user')->get();
+    }
+
+    public function getUsers(){   
+
+        $data = User::all();
+        return response()->json([
+            'users' => $data
+        ]);
+    }
+
+
+    public function send_message(Request $request){   
+
+        $message = new Message;
+        $message['message'] = $request->message;
+        $message['user_id'] = 1;
+        if($message->save()){   
+        return response()->json([
+            'policies' => $message,
+            'status'=>'Save Messages'
+        ]);
+    }else{
+        return response()->json([
+            'policies' => "Data can not be inserting !!"
+        ]);
+    }
+    }
+
 
 }
