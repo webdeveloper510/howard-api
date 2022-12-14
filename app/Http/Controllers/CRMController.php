@@ -271,8 +271,6 @@ class CRMController extends Controller
             'users' => $data
         ]);
     }
-
-
     public function send_message(Request $request){   
 
         $message = new Message;
@@ -289,6 +287,109 @@ class CRMController extends Controller
         ]);
     }
     }
+
+    public function custody_badge_request(Request $request){   
+        $badge_request = array(
+            'employee_id'=>1,
+            'employee_name'=>$request->employee_name,
+            'emp_type'=>$request->emp_type,
+            'title'=>$request->title,
+            'department_id'=>$request->department_id,
+            'visit'=>$request->visit,
+            'lost'=>$request->lost,
+            'exist_badge'=>$request->exist_badge,
+            'shift_hour'=>$request->shift_hour,
+            'requested_by'=>$request->requested_by,
+            'notes'=>$request->notes,
+            'assigned_badge'=>$request->assigned_badge,
+            'location'=>$request->location
+        );
+
+        $queryState= DB::table('badge_employee')->insert($badge_request);
+        if($queryState) {
+            return response()->json([
+                'policies' => $message,
+                'status'=>'Save Form'
+            ]);
+        } else {
+            return response()->json([
+                'policies' => "Some Error !!"
+            ]);
+        }
+    }
+
+
+    public function custody_request(Request $request){   
+        $custody_employee = array(
+            'employee_id'=>1,
+            'employee_name'=>$request->employee_name,
+            'last_name'=>$request->last_name,
+            'emp_type'=>$request->emp_type,
+            'location'=>$request->location,
+            'department_id'=>$request->department_id,
+            'title'=>$request->title,
+            'section_id'=>$request->section_id,
+            'laptop_issue'=>$request->laptop_issue,
+            'equipment_type'=>$request->equipment_type,
+            'monitor_issue'=>$request->monitor_issue,
+            'docking_issue'=>$request->docking_issue,
+            'lost'=>$request->lost,
+            'manufatured_by'=>$request->manufatured_by,
+            'monitor_brand'=>$request->monitor_brand,
+            'bag_type'=>$request->bag_type,
+            'model_number'=>$request->model_number,
+            'monitor_model'=>$request->monitor_model,
+            'monitor_serial#'=>$request->monitor_serial,
+            'serial_number'=>$request->serial_number,
+            'phone_serial'=>$request->phone_serial,
+            'phone_issue_date'=>$request->phone_issue_date,
+            'phone_brand'=>$request->phone_brand,
+            'phone_model'=>$request->phone_model
+        );
+
+        $queryState= DB::table('custody_employee')->insert($custody_employee);
+        if($queryState) {
+            return response()->json([
+                'policies' => $message,
+                'status'=>'Save Form'
+            ]);
+        } else {
+            return response()->json([
+                'policies' => "Some Error !!"
+            ]);
+        }
+    }
+
+
+    public function create_request(Request $request){   
+        $facility_request = array(
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'priority'=>$request->priority,
+            'general_location'=>$request->general_location,
+            'facility_location'=>$request->facility_location,
+            'department_id'=>$request->department_id,
+            'facility_request'=>$request->facility_request,
+            'emergency_impact'=>$request->emergency_impact,
+            'description'=>$request->description,
+            'system'=>$request->system,
+            'file'=>$request->file,
+        );
+
+        $queryState= DB::table('facility_request')->insert($facility_request);
+        if($queryState) {
+            return response()->json([
+                'policies' => $message,
+                'status'=>'Save Form'
+            ]);
+        } else {
+            return response()->json([
+                'policies' => "Some Error !!"
+            ]);
+        }
+    }
+
 
 
 }
