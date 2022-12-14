@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\DemageReport;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
-
+use DB;
 
 use function Ramsey\Uuid\v1;
 
