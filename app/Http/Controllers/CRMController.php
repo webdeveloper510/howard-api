@@ -74,7 +74,15 @@ class CRMController extends Controller
 
     public function edit_employee(Request $request, $id)
     {
-        $update = Employee::where('id', $id)->update($request->all());
+        $data = $request->all();
+        
+        $name = $data['first_name'];
+        $department_id = $data['department_id'];
+        $email = $data['email'];
+        $password= $data['password'];
+        $phone = $data['phone'];
+        
+        $update = Employee::where('id', $id)->update(['first_name' => $name, 'department_id' => $department_id, 'email' => $email,'password' => $password, 'phone' => $phone]);
         return response()->json([
             'employees' => $update,
             'message' => 'Employee updated successfully !'
