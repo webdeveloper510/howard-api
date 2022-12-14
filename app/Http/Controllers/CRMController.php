@@ -316,7 +316,7 @@ class CRMController extends Controller
         $queryState= DB::table('badge_employee')->insert($badge_request);
         if($queryState) {
             return response()->json([
-                'policies' => $message,
+             
                 'status'=>'Save Form'
             ]);
         } else {
@@ -378,6 +378,7 @@ class CRMController extends Controller
             'general_location'=>$request->general_location,
             'facility_location'=>$request->facility_location,
             'department_id'=>$request->department_id,
+            'department_request'=>$request->department_request,
             'facility_request'=>$request->facility_request,
             'emergency_impact'=>$request->emergency_impact,
             'description'=>$request->description,
@@ -388,7 +389,7 @@ class CRMController extends Controller
         $queryState= DB::table('facility_request')->insert($facility_request);
         if($queryState) {
             return response()->json([
-                'policies' => $message,
+               
                 'status'=>'Save Form'
             ]);
         } else {
