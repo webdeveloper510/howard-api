@@ -6649,18 +6649,7 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-<<<<<<< HEAD
-            "version": "9.2.20",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "af7463c955007de36db0c5e26d03e2f933c2e980"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/af7463c955007de36db0c5e26d03e2f933c2e980",
-                "reference": "af7463c955007de36db0c5e26d03e2f933c2e980",
-=======
+
             "version": "9.2.19",
             "source": {
                 "type": "git",
@@ -6671,7 +6660,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/c77b56b63e3d2031bd8997fcec43c1925ae46559",
                 "reference": "c77b56b63e3d2031bd8997fcec43c1925ae46559",
->>>>>>> c6ac249c737bcf0ea1c5ab34e90e5f4275c5ff4c
                 "shasum": ""
             },
             "require": {
