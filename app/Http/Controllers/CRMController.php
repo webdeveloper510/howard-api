@@ -378,11 +378,9 @@ class CRMController extends Controller
             'general_location'=>$request->general_location,
             'facility_location'=>$request->facility_location,
             'department_id'=>$request->department_id,
-            'department_request'=>$request->department_request,
-            'facility_request'=>$request->facility_request,
-            'emergency_impact'=>$request->emergency_impact,
+            'facility_request'=>json_encode($request->facility_request),
             'description'=>$request->description,
-            'system'=>$request->system,
+            'system'=>json_encode($request->system),
             'file'=>$request->file,
         );
 
