@@ -43,5 +43,8 @@ Route::get('get_policy',[CRMController::class,'get_policy']);
 Route::get('get_users',[CRMController::class,'getUsers']);
 Route::get('view/{id}',[CRMController::class,'view_policy']);
 Route::get('messages',[CRMController::class,'fetch_messages']);
-Route::post('add_terminate_office',[CRMController::class,'add_terminate_office']);
+Route::post('add_terminate_office',[CRMController::class,'terminate_office']);
+Route::post('add_it_move',[CRMController::class,'it_move']);
+Route::post('add_new_equipment',[CRMController::class,'new_equipment']);
+Route::post('add_equipment_request',[CRMController::class,'equipment_request']);
 

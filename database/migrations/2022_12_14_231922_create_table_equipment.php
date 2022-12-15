@@ -12,7 +12,7 @@ class CreateTableEquipment extends Migration
      * @return void
      */
 
-     
+
     public function up()
     {
         Schema::create('equipment_request_form', function (Blueprint $table) {
@@ -26,7 +26,7 @@ class CreateTableEquipment extends Migration
             $table->string('requestor_email');
             $table->string('contact_phone');
             $table->integer('department_id');
-            $table->string('requested_by_date');    
+            $table->string('requested_by_date');
             $table->string('type_hardware_requested');
             $table->string('software_requested');
             $table->text('additional_equipment');

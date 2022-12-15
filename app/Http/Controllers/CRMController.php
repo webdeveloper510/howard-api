@@ -212,11 +212,13 @@ class CRMController extends Controller
         $user = new Policy;
         $user['name'] = $request->name;
         $user['description'] = $request->description;
-        if($user->save()){
+        if($user->save())
+        {
         return response()->json([
             'policies' => $user
         ]);
-    }else{
+    }
+    else{
         return response()->json([
             'policies' => "Data can not be inserting !!"
         ]);
@@ -240,7 +242,8 @@ class CRMController extends Controller
     }
 
     }
-    public function policy_edit(Request $request, $id){
+    public function policy_edit(Request $request, $id)
+    {
         $data = $request->all();
         $name = $data['name'];
         $description = $data['description'];
@@ -249,7 +252,8 @@ class CRMController extends Controller
             'message' => 'Policy Updated Successfully !!'
         ]);
     }
-    public function get_policy(){
+    public function get_policy()
+    {
         $data = Policy::all();
         return response()->json([
             'policy' => $data,
@@ -258,7 +262,8 @@ class CRMController extends Controller
         ]);
     }
 
-    public function view_policy($id){
+    public function view_policy($id)
+    {
         $data = Policy::find($id);
         return response()->json([
             'policy' => $data,
@@ -267,19 +272,22 @@ class CRMController extends Controller
         ]);
     }
 
-    public function fetch_messages(){
+    public function fetch_messages()
+    {
 
         return Message::with('user')->get();
     }
 
-    public function getUsers(){
+    public function getUsers()
+    {
 
         $data = User::all();
         return response()->json([
             'users' => $data
         ]);
     }
-    public function send_message(Request $request){
+    public function send_message(Request $request)
+    {
 
         $message = new Message;
         $message['message'] = $request->message;
@@ -289,7 +297,9 @@ class CRMController extends Controller
             'policies' => $message,
             'status'=>'Save Messages'
         ]);
-    }else{
+    }
+    else{
+
         return response()->json([
             'policies' => "Data can not be inserting !!"
         ]);
@@ -397,7 +407,7 @@ class CRMController extends Controller
         }
     }
 
-    public function add_terminate_office(Request $request){
+    public function terminate_office(Request $request){
         $terminate_office = array(
             'manager_name'=>$request->manager_name,
             'last_name'=>$request->last_name,
@@ -426,6 +436,105 @@ class CRMController extends Controller
         } else {
             return response()->json([
                 'terminate_office' => "Some Error !!"
+            ]);
+        }
+    }
+
+    public function it_move(Request $request){
+        $it_move = array(
+            'requestor_name'=>$request->requestor_name,
+            'last_name'=>$request->last_name,
+            'requestor_email'=>$request->requestor_email,
+            'department'=>$request->department,
+            'move_from'=>$request->move_from,
+            'move_to'=>$request->move_to,
+            'additional_detail'=>$request->additional_detail,
+            'manager_approval'=>$request->manager_approval,
+            'resolution'=>$request->resolution,
+            'location'=>$request->location,
+
+        );
+
+        $queryState= DB::table('it_move')->insert($it_move);
+        if($queryState) {
+            return response()->json([
+
+                'status'=>'Saved It Move Form'
+            ]);
+        } else {
+            return response()->json([
+                'it_move' => "Some Error !!"
+            ]);
+        }
+    }
+
+
+    public function new_equipment(Request $request){
+        $new_equipment = array(
+            'manager_name'=>$request->manager_name,
+            'last_name'=>$request->last_name,
+            'manager_email'=>$request->manager_email,
+            'hired_name'=>$request->hired_name,
+            'hired_last'=>$request->hired_last,
+            'equipment_type'=>$request->equipment_type,
+            'hired_date'=>$request->hired_date,
+            'employee_pos'=>$request->employee_pos,
+            'location'=>$request->location,
+            'copy_address'=>$request->copy_address,
+            'department'=>$request->department,
+            'software_required'=>$request->software_required,
+            'disablity'=>$request->disablity,
+            'add_soft'=>$request->add_soft,
+            'door_badge'=>$request->door_badge,
+
+        );
+
+        $queryState= DB::table('new_equipment')->insert($new_equipment);
+        if($queryState) {
+            return response()->json([
+
+                'status'=>'Saved New Equipment Form'
+            ]);
+        } else {
+            return response()->json([
+                'new_equipment' => "Some Error !!"
+            ]);
+        }
+    }
+
+    public function equipment_request(Request $request){
+        $equipment_request = array(
+            'requestor_name'=>$request->requestor_name,
+            'last_name'=>$request->last_name,
+            'equipment_name'=>$request->equipment_name,
+            'equipment_last_name'=>$request->equipment_last_name,
+            'location'=>$request->location,
+            'requestor_email'=>$request->requestor_email,
+            'contact_phone'=>$request->contact_phone,
+            'department_id'=>$request->department_id,
+            'requested_by_date'=>$request->requested_by_date,
+            'type_hardware_requested'=>$request->type_hardware_requested,
+            'software_requested'=>$request->software_requested,
+            'additional_equipment'=>$request->additional_equipment,
+            'reason'=>$request->reason,
+            'ship_address'=>$request->ship_address,
+            'ship_city'=>$request->ship_city,
+            'ship_state'=>$request->ship_state,
+            'ship_zipcode'=>$request->ship_zipcode,
+            'office_location'=>$request->office_location,
+            'additonal_users_fname'=>$request->additonal_users_fname,
+            'additonal_users_lname'=>$request->additonal_users_lname,
+            'signature'=>$request->signature,
+        );
+
+        $queryState= DB::table('equipment_request_form')->insert($equipment_request);
+        if($queryState) {
+            return response()->json([
+                'status'=>'Saved Equipment Request Form'
+            ]);
+        } else {
+            return response()->json([
+                'equipment_request_form' => "Some Error !!"
             ]);
         }
     }
