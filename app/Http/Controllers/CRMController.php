@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\DemageReport;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
-
+use DB;
 
 use function Ramsey\Uuid\v1;
 
@@ -62,7 +62,7 @@ class CRMController extends Controller
             }])->get()
         ]);
     }
-    
+
     public function delete_employee($id)
     {
         $data = Employee::find($id);
@@ -74,7 +74,15 @@ class CRMController extends Controller
 
     public function edit_employee(Request $request, $id)
     {
-        $update = Employee::where('id', $id)->update($request->all());
+        $data = $request->all();
+
+        $name = $data['first_name'];
+        $department_id = $data['department_id'];
+        $email = $data['email'];
+        $password= $data['password'];
+        $phone = $data['phone'];
+
+        $update = Employee::where('id', $id)->update(['first_name' => $name, 'department_id' => $department_id, 'email' => $email,'password' => $password, 'phone' => $phone]);
         return response()->json([
             'employees' => $update,
             'message' => 'Employee updated successfully !'
@@ -119,7 +127,7 @@ class CRMController extends Controller
                 'message' => 'Invalid Login !!'
             ]);
         }
-        
+
     }
 
 
@@ -230,7 +238,7 @@ class CRMController extends Controller
             'message' => 'Can not be data deleted'
         ]);
     }
-    
+
     }
     public function policy_edit(Request $request, $id){
         $data = $request->all();
@@ -241,7 +249,7 @@ class CRMController extends Controller
             'message' => 'Policy Updated Successfully !!'
         ]);
     }
-    public function get_policy(){        
+    public function get_policy(){
         $data = Policy::all();
         return response()->json([
             'policy' => $data,
@@ -250,7 +258,7 @@ class CRMController extends Controller
         ]);
     }
 
-    public function view_policy($id){        
+    public function view_policy($id){
         $data = Policy::find($id);
         return response()->json([
             'policy' => $data,
@@ -259,26 +267,24 @@ class CRMController extends Controller
         ]);
     }
 
-    public function fetch_messages(){   
+    public function fetch_messages(){
 
         return Message::with('user')->get();
     }
 
-    public function getUsers(){   
+    public function getUsers(){
 
         $data = User::all();
         return response()->json([
             'users' => $data
         ]);
     }
-
-
-    public function send_message(Request $request){   
+    public function send_message(Request $request){
 
         $message = new Message;
         $message['message'] = $request->message;
         $message['user_id'] = 1;
-        if($message->save()){   
+        if($message->save()){
         return response()->json([
             'policies' => $message,
             'status'=>'Save Messages'
@@ -290,5 +296,138 @@ class CRMController extends Controller
     }
     }
 
+    public function custody_badge_request(Request $request){
+        $badge_request = array(
+            'employee_id'=>1,
+            'employee_name'=>$request->employee_name,
+            'emp_type'=>$request->emp_type,
+            'title'=>$request->title,
+            'department_id'=>$request->department_id,
+            'visit'=>$request->visit,
+            'lost'=>$request->lost,
+            'exist_badge'=>$request->exist_badge,
+            'shift_hour'=>$request->shift_hour,
+            'requested_by'=>$request->requested_by,
+            'notes'=>$request->notes,
+            'assigned_badge'=>$request->assigned_badge,
+            'location'=>$request->location
+        );
+
+        $queryState= DB::table('badge_employee')->insert($badge_request);
+        if($queryState) {
+            return response()->json([
+
+                'status'=>'Save Form'
+            ]);
+        } else {
+            return response()->json([
+                'policies' => "Some Error !!"
+            ]);
+        }
+    }
+
+
+    public function custody_request(Request $request){
+        $custody_employee = array(
+            'employee_id'=>1,
+            'employee_name'=>$request->employee_name,
+            'last_name'=>$request->last_name,
+            'emp_type'=>$request->emp_type,
+            'location'=>$request->location,
+            'department_id'=>$request->department_id,
+            'title'=>$request->title,
+            'section_id'=>$request->section_id,
+            'laptop_issue'=>$request->laptop_issue,
+            'equipment_type'=>$request->equipment_type,
+            'monitor_issue'=>$request->monitor_issue,
+            'docking_issue'=>$request->docking_issue,
+            'lost'=>$request->lost,
+            'manufatured_by'=>$request->manufatured_by,
+            'monitor_brand'=>$request->monitor_brand,
+            'bag_type'=>$request->bag_type,
+            'model_number'=>$request->model_number,
+            'monitor_model'=>$request->monitor_model,
+            'monitor_serial#'=>$request->monitor_serial,
+            'serial_number'=>$request->serial_number,
+            'phone_serial'=>$request->phone_serial,
+            'phone_issue_date'=>$request->phone_issue_date,
+            'phone_brand'=>$request->phone_brand,
+            'phone_model'=>$request->phone_model
+        );
+
+        $queryState= DB::table('custody_employee')->insert($custody_employee);
+        if($queryState) {
+            return response()->json([
+                'policies' => 'xdgsdfg',
+                'status'=>'Save Form'
+            ]);
+        } else {
+            return response()->json([
+                'policies' => "Some Error !!"
+            ]);
+        }
+    }
+
+
+    public function create_request(Request $request){
+        $facility_request = array(
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'priority'=>$request->priority,
+            'general_location'=>$request->general_location,
+            'facility_location'=>$request->facility_location,
+            'department_id'=>$request->department_id,
+            'facility_request'=>json_encode($request->facility_request),
+            'description'=>$request->description,
+            'system'=>json_encode($request->system),
+            'file'=>$request->file,
+        );
+
+        $queryState= DB::table('facility_request')->insert($facility_request);
+        if($queryState) {
+            return response()->json([
+
+                'status'=>'Save Form'
+            ]);
+        } else {
+            return response()->json([
+                'policies' => "Some Error !!"
+            ]);
+        }
+    }
+
+    public function add_terminate_office(Request $request){
+        $terminate_office = array(
+            'manager_name'=>$request->manager_name,
+            'last_name'=>$request->last_name,
+            'manager_email'=>$request->manager_email,
+            'title'=>$request->title,
+            'effective_date'=>$request->effective_date,
+            'priority'=>$request->priority,
+            'employee_name'=>$request->employee_name,
+            'emp_last_name'=>$request->emp_last_name,
+            'emp_job_title'=>$request->emp_job_title,
+            'badge'=>$request->badge,
+            'collected'=>$request->collected,
+            'location'=>$request->location,
+            'code'=>$request->code,
+            'equipment_collected'=>$request->equipment_collected,
+            'soft_removal'=>$request->soft_removal,
+            'instruction'=>$request->instruction,
+        );
+
+        $queryState= DB::table('terminate_office')->insert($terminate_office);
+        if($queryState) {
+            return response()->json([
+
+                'status'=>'Save Form'
+            ]);
+        } else {
+            return response()->json([
+                'terminate_office' => "Some Error !!"
+            ]);
+        }
+    }
 
 }

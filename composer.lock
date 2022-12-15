@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a62ecdc0cdae4a2cdcf81a21b32eaba3",
+    "content-hash": "e89609b138078e83a44cdb17794a2e12",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6649,6 +6649,7 @@
         },
         {
             "name": "phpunit/php-code-coverage",
+<<<<<<< HEAD
             "version": "9.2.20",
             "source": {
                 "type": "git",
@@ -6659,6 +6660,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/af7463c955007de36db0c5e26d03e2f933c2e980",
                 "reference": "af7463c955007de36db0c5e26d03e2f933c2e980",
+=======
+            "version": "9.2.19",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
+                "reference": "c77b56b63e3d2031bd8997fcec43c1925ae46559"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/c77b56b63e3d2031bd8997fcec43c1925ae46559",
+                "reference": "c77b56b63e3d2031bd8997fcec43c1925ae46559",
+>>>>>>> c6ac249c737bcf0ea1c5ab34e90e5f4275c5ff4c
                 "shasum": ""
             },
             "require": {
@@ -6714,7 +6727,8 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.20"
+
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.19"
             },
             "funding": [
                 {
@@ -8091,5 +8105,10 @@
         "php": "^7.3"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+
+    "platform-overrides": {
+        "php": "7.4.21"
+    },
+    "plugin-api-version": "2.2.0"
+
 }
