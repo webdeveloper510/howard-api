@@ -408,6 +408,7 @@ class CRMController extends Controller
     }
 
     public function terminate_office(Request $request){
+      
         $terminate_office = array(
             'manager_name'=>$request->manager_name,
             'last_name'=>$request->last_name,
@@ -419,11 +420,11 @@ class CRMController extends Controller
             'emp_last_name'=>$request->emp_last_name,
             'emp_job_title'=>$request->emp_job_title,
             'badge'=>$request->badge,
-            'collected'=>$request->collected,
+            'collected'=>json_encode($request->collected),
             'location'=>$request->location,
             'code'=>$request->code,
-            'equipment_collected'=>$request->equipment_collected,
-            'soft_removal'=>$request->soft_removal,
+            'equipment_collected'=>json_encode($request->equipment_collected),
+            'soft_removal'=>json_encode($request->soft_removal),
             'instruction'=>$request->instruction,
         );
 
