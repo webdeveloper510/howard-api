@@ -538,5 +538,11 @@ class CRMController extends Controller
             ]);
         }
     }
-
+    public function get_badges(Request $request,$table){
+         $data = DB::table($table)->get()->toArray();
+        return response()->json([
+                    'data'=>$data,
+                    'table'=>$table
+                ]);
+    }
 }
