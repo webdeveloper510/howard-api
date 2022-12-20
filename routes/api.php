@@ -35,6 +35,7 @@ Route::post('login', [CRMController::class, 'login']);
 Route::post('send_message', [CRMController::class, 'send_message']);
 Route::get('get_employee_profile/{id}',[CRMController::class,'get_employee_profile']);
 Route::get('get_team',[CRMController::class,'get_team']);
+Route::get('get_form/{table}',[CRMController::class,'get_badges']);
 Route::post('demage_report',[CRMController::class,'demage_report']);
 Route::post('policy_create',[CRMController::class,'policy_create']);
 Route::delete('policy_delete/{id}',[CRMController::class,'policy_delete']);

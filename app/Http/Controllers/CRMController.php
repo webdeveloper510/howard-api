@@ -342,16 +342,15 @@ class CRMController extends Controller
             'employee_id'=>1,
             'employee_name'=>$request->employee_name,
             'last_name'=>$request->last_name,
-            'emp_type'=>$request->emp_type,
             'location'=>$request->location,
             'department_id'=>$request->department_id,
             'title'=>$request->title,
-            'section_id'=>$request->section_id,
+            'section_id'=>1,
             'laptop_issue'=>$request->laptop_issue,
             'equipment_type'=>$request->equipment_type,
             'monitor_issue'=>$request->monitor_issue,
             'docking_issue'=>$request->docking_issue,
-            'lost'=>$request->lost,
+            'lost'=>'Yes',
             'manufatured_by'=>$request->manufatured_by,
             'monitor_brand'=>$request->monitor_brand,
             'bag_type'=>$request->bag_type,
@@ -380,31 +379,39 @@ class CRMController extends Controller
 
 
     public function create_request(Request $request){
-        $facility_request = array(
+        if($request->file('file')) {
+            return json_encode(['status'=>'Hello']);
+          $file_name = time().'_'.$request->file->getClientOriginalName();
+          $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
+            $facility_request = array(
             'name'=>$request->name,
             'email'=>$request->email,
             'phone'=>$request->phone,
             'priority'=>$request->priority,
             'general_location'=>$request->general_location,
             'facility_location'=>$request->facility_location,
-            'department_id'=>$request->department_id,
+            'department_id'=>$request->department_id, 
             'facility_request'=>json_encode($request->facility_request),
             'description'=>$request->description,
             'system'=>json_encode($request->system),
-            'file'=>$request->file,
+            'file'=>'/storage/' . $file_path
         );
 
         $queryState= DB::table('facility_request')->insert($facility_request);
         if($queryState) {
             return response()->json([
-
-                'status'=>'Save Form'
+                'status'=>'Save Form',
+                'data'=>$request
             ]);
         } else {
             return response()->json([
                 'policies' => "Some Error !!"
             ]);
         }
+            }
+    //   $file_name = time().'_'.$request->file->getClientOriginalName();
+    //  $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
+     
     }
 
     public function terminate_office(Request $request){
@@ -473,20 +480,20 @@ class CRMController extends Controller
     public function new_equipment(Request $request){
         $new_equipment = array(
             'manager_name'=>$request->manager_name,
-            'last_name'=>$request->last_name,
+            'last_name'=>'Test',
             'manager_email'=>$request->manager_email,
             'hired_name'=>$request->new_employee_details,
             'hired_last'=>$request->new_employee_details,
-            'equipment_type'=>json_encode($request->equipmentTypes),
+            'equipment_type'=>json_encode($request->equipment_type),
             'hired_date'=>$request->hire_date,
             'employee_pos'=>$request->employee_position,
             'location'=>$request->location,
             'copy_address'=>$request->copy_access,
-            'department'=>json_encode($request->department_name),
+            'department'=>$request->department,
             'software_required'=>json_encode($request->software_required),
-            'disablity'=>$request->disablity,
-            'add_soft'=>$request->add_soft,
-            'door_badge'=>$request->badge,
+            'disablity'=>$request->shiftType,
+            'add_soft'=>json_encode($request->add_soft),
+            'door_badge'=>json_encode($request->door_badge),
 
         );
 
@@ -508,14 +515,14 @@ class CRMController extends Controller
             'requestor_name'=>$request->requestor_name,
             'last_name'=>$request->last_name,
             'equipment_name'=>$request->equipment_name,
-            'equipment_last_name'=>$request->equipment_last_name,
+            'equipment_last_name'=>'Test',
             'location'=>$request->location,
             'requestor_email'=>$request->requestor_email,
             'contact_phone'=>$request->contact_phone,
             'department_id'=>$request->department_id,
             'requested_by_date'=>$request->requested_by_date,
-            'type_hardware_requested'=>$request->type_hardware_requested,
-            'software_requested'=>$request->software_requested,
+            'type_hardware_requested'=>json_encode($request->type_hardware_requested),
+            'software_requested'=>json_encode($request->software_requested),
             'additional_equipment'=>$request->additional_equipment,
             'reason'=>$request->reason,
             'ship_address'=>$request->ship_address,
@@ -539,5 +546,11 @@ class CRMController extends Controller
             ]);
         }
     }
-
+    public function get_badges(Request $request,$table){
+         $data = DB::table($table)->get()->toArray();
+        return response()->json([
+                    'forms'=>$data,
+                    'table'=>$table
+                ]);
+    }
 }
