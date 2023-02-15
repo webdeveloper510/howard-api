@@ -116,7 +116,9 @@ class CRMController extends Controller
 
     public function login(Request $request)
     {
-        $login = Employee::where(['employee_id' => $request['employee_id'], 'password' => $request['password']])->get()->toArray();
+       // print_r($request->all());die;
+        $login = Employee::where(['employee_id' => $request['username'], 'password' => $request['password']])->get()->toArray();
+        
         if (count($login)>0) {
             return response()->json([
                 'message' => 'Login Successfully !!',
@@ -379,39 +381,36 @@ class CRMController extends Controller
 
 
     public function create_request(Request $request){
-        if($request->file('file')) {
-            return json_encode(['status'=>'Hello']);
-          $file_name = time().'_'.$request->file->getClientOriginalName();
-          $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
-            $facility_request = array(
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'phone'=>$request->phone,
-            'priority'=>$request->priority,
-            'general_location'=>$request->general_location,
-            'facility_location'=>$request->facility_location,
-            'department_id'=>$request->department_id, 
-            'facility_request'=>json_encode($request->facility_request),
-            'description'=>$request->description,
-            'system'=>json_encode($request->system),
-            'file'=>'/storage/' . $file_path
-        );
+         if($request->file()) {
+                  $file_name = time().'_'.$request->file->getClientOriginalName();
+                  $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
+                   $facility_request = array(
+                    'name'=>$request->name,
+                    'email'=>$request->email,
+                    'phone'=>$request->phone,
+                    'priority'=>$request->priority,
+                    'general_location'=>$request->general_location,
+                    'facility_location'=>$request->facility_location,
+                    'department_id'=>$request->department_id, 
+                    'facility_request'=>json_encode($request->facility_request),
+                    'description'=>$request->description,
+                    'system'=>json_encode($request->system),
+                    'file'=>'/storage/' . $file_path,
+                    );
+                $queryState= DB::table('facility_request')->insert($facility_request);
+                if($queryState) {
+                    return response()->json([
+                        'status'=>'Save Form',
+                        'data'=>$request
+                    ]);
+                } else {
+                    return response()->json([
+                        'policies' => "Some Error !!"
+                    ]);
+                }
 
-        $queryState= DB::table('facility_request')->insert($facility_request);
-        if($queryState) {
-            return response()->json([
-                'status'=>'Save Form',
-                'data'=>$request
-            ]);
-        } else {
-            return response()->json([
-                'policies' => "Some Error !!"
-            ]);
-        }
-            }
-    //   $file_name = time().'_'.$request->file->getClientOriginalName();
-    //  $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
-     
+    }
+        
     }
 
     public function terminate_office(Request $request){
