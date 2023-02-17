@@ -105,6 +105,10 @@ class CRMController extends Controller
         $data['description'] = $request->description;
         $data['department_id'] = $request->department_id;
         $data['created_by'] = $request->created_by;
+         $data['created_at'] = $request->date;
+        $data['author_name'] = $request->author_name;
+        
+        $data['published'] = $request->published;
         $data->save();
 
         return response()->json([
