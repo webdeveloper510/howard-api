@@ -17,7 +17,7 @@ class CreateAnnouncementsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->integer('department_id');
+            $table->string('department_id');
             $table->integer('created_by');
             $table->timestamps();
         });

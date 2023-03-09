@@ -22,7 +22,7 @@ class CreateTableEmpFacilitiesRequest extends Migration
             $table->string('priority')->comment('1: Emergency; 2:High ; 3:Medium; 4:Low');
             $table->string('facility_location');
             $table->integer('general_location');
-            $table->integer('department_id');
+            $table->string('department_id');
             $table->string('facility_request');
             $table->text('emergency_impact');
             $table->text('description');

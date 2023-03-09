@@ -22,7 +22,7 @@ class CreateTableEmpCustody extends Migration
             $table->string('location');
             $table->enum('equipment_type', [1=>'Desktop', 2=>'Laptop',3=>'Tablet']);
             $table->string('title');
-            $table->integer('department_id');
+            $table->string('department_id');
             $table->integer('section_id');
             $table->enum('laptop_issue', [1=>'Yes', 0=>'No']);
             $table->enum('monitor_issue', [1=>'Yes', 0=>'No']);

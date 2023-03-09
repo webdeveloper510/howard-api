@@ -20,7 +20,7 @@ class CreateTableBadge extends Migration
             $table->string('employee_name');
             $table->string('emp_type');
             $table->string('title');
-            $table->integer('department_id');
+            $table->string('department_id');
             $table->enum('visit', [1=>'Yes', 0=>'No']);
             $table->enum('lost', [1=>'Yes', 0=>'No']);
             $table->string('exist_badge')->default('NA');
